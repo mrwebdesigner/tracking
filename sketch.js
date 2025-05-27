@@ -61,7 +61,7 @@ function draw() {
     textAlign("center");
     textSize(distanza_mano_1);
     fill(distanza_mano_2, 0, 0);
-    text("Ciao", width / 2, height);
+    text("BU", width / 2, height);
 
     line(pollice_1.x, pollice_1.y, indice_1.x, indice_1.y);
     line(pollice_2.x, pollice_2.y, indice_2.x, indice_2.y);
