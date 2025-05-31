@@ -11,7 +11,7 @@ let hands = [];
 let faceMesh;
 
 /** @type {ml5.faces[]} */
-let faces = [1];
+let faces = [];
 
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
 
@@ -29,7 +29,7 @@ function setup() {
   createCanvas(640 * scale, 480 * scale);
 
   // Create the webcam video and hide it
-  video = createCapture(VIDEO, { flipped: true });
+  video = createCapture(VIDEO, { flipped: false });
   video.size(width, height);
   video.hide();
 
