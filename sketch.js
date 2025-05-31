@@ -1,3 +1,4 @@
+// @ts-nocheck
 let video;
 
 /** @type {ml5.HandPose} */
@@ -6,11 +7,21 @@ let handPose;
 /** @type {ml5.Hand[]} */
 let hands = [];
 
+/** @type {ml5.faceMesh} */
+let faceMesh;
+
+/** @type {ml5.faces[]} */
+let faces = [1];
+
+let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
+
 function preload() {
   // Load the handPose model
   handPose = ml5.handPose({
     flipped: true,
   });
+
+  faceMesh = ml5.faceMesh(options);
 }
 
 function setup() {
@@ -26,6 +37,8 @@ function setup() {
   handPose.detectStart(video, function (results) {
     hands = results;
   });
+
+  faceMesh.detectStart(video, gotFaces);
 }
 
 function draw() {
@@ -61,10 +74,20 @@ function draw() {
     textAlign("center");
     textSize(distanza_mano_1);
     fill(distanza_mano_2, 0, 0);
-    text("TEST", width / 2, height);
+    text("Prova", width / 2, height);
 
     line(pollice_1.x, pollice_1.y, indice_1.x, indice_1.y);
     line(pollice_2.x, pollice_2.y, indice_2.x, indice_2.y);
+
+    for (let i = 0; i < faces.length; i++) {
+      let face = faces[i];
+      for (let j = 0; j < face.keypoints.length; j++) {
+        let keypoint = face.keypoints[j];
+        fill(0, 255, 0);
+        noStroke();
+        rect(keypoint.x, keypoint.y);
+      }
+    }
   }
 
   // strokeWeight(4);
@@ -92,4 +115,8 @@ function draw() {
 
   // stroke(0, 255, 0);
   // line(mano_1_indice.x, mano_1_indice.y, mano_2_indice.x, mano_2_indice.y);
+}
+function gotFaces(results) {
+  // Save the output to the faces variable
+  faces = results;
 }

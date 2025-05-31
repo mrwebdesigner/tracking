@@ -24,6 +24,14 @@ declare namespace ml5 {
     x: number;
     y: number;
   }
+
+  export function faceMesh(options: {
+    maxFaces: number;
+    refineLandmarks: boolean;
+    flipHorizontal: boolean;
+  }): ml5.faceMesh {
+    throw new Error("Function not implemented.");
+  }
 }
 
 declare const VIDEO: "video";
