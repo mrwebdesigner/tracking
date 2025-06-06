@@ -15,6 +15,11 @@ let faces = [];
 
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
 
+let spostamento = {
+  x: 10,
+  y: 10,
+};
+
 function preload() {
   // Load the handPose model
   handPose = ml5.handPose({
@@ -71,23 +76,20 @@ function draw() {
       indice_2.y
     );
 
-    textAlign("center");
-    textSize(distanza_mano_1);
-    fill(distanza_mano_2, 0, 0);
-    text("Prova", width / 2, height);
+    spostamento.x = distanza_mano_1;
+    spostamento.y = distanza_mano_2;
+  }
 
-    line(pollice_1.x, pollice_1.y, indice_1.x, indice_1.y);
-    line(pollice_2.x, pollice_2.y, indice_2.x, indice_2.y);
-
-    for (let i = 0; i < faces.length; i++) {
-      let face = faces[i];
-      for (let j = 0; j < face.keypoints.length; j++) {
-        let keypoint = face.keypoints[j];
-        fill(0, 255, 0);
-        noStroke();
-        rect(keypoint.x, keypoint.y);
-      }
-    }
+  for (let i = 0; i < faces.length; i++) {
+    let face = faces[i];
+    console.log(face);
+    let box = face.box;
+    push();
+    beginClip();
+    rect(box.xMin, box.yMin, box.width, box.height);
+    endClip();
+    image(video, spostamento.x, spostamento.y, width, height);
+    pop();
   }
 
   // strokeWeight(4);
