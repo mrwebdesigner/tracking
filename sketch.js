@@ -9,7 +9,7 @@ let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
 let rotationAngle = 0;
 
 function preload() {
-  handPose = ml5.handPose({ flipped: true });
+  handPose = ml5.handPose({ flipped: false });
   faceMesh = ml5.faceMesh(options);
 }
 
@@ -55,8 +55,8 @@ function draw() {
 
 // Disegna griglia di celle che ruotano
 function drawFaceGridWithRotation(box, rotazione) {
-  let cols = 10;
-  let rows = 10;
+  let cols = 4;
+  let rows = 4;
   let cellW = box.width / cols;
   let cellH = box.height / rows;
 
