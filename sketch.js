@@ -4,7 +4,7 @@ let handPose;
 let hands = [];
 let faceMesh;
 let faces = [];
-let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
+let options = { maxFaces: 2, refineLandmarks: false, flipHorizontal: false };
 
 let rotationAngle = 0;
 
@@ -14,7 +14,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(640, 480, WEBGL); // WEBGL necessario per rotazione 3D
+  createCanvas(windowWidth, windowHeight, WEBGL); // WEBGL necessario per rotazione 3D
 
   video = createCapture(VIDEO);
   video.size(width, height);
