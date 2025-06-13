@@ -29,6 +29,7 @@ function setup() {
 
 function draw() {
   background(0);
+  //rotationAngle += 0.01;
 
   // Mostra il video come texture generale dietro
   push();
