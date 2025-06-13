@@ -46,7 +46,6 @@ function draw() {
 
 function drawUniqueVideoGridOnFace(face, cols = 5, rows = 6) {
   const keypoints = face.keypoints;
-
   // Coordinate viso nel video
   let left = keypoints[234].x;
   let right = keypoints[454].x;
