@@ -6,8 +6,8 @@ let faceMesh;
 let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
 let sfasamento = 10;
-
-let rotationAngle = 0;
+let scaleFactor = 1;
+//let rotationAngle = 0;
 
 function preload() {
   handPose = ml5.handPose({ flipped: false });
@@ -42,7 +42,18 @@ function draw() {
     drawUniqueVideoGridOnFace(faces[i], 5, 6);
   }
 
-  sfasamento = mouseX;
+  //sfasamento = mouseX;
+  if (hands.length > 0) {
+    let hand = hands[0];
+    let indexTip = hand.keypoints.find((p) => p.name === "index_finger_tip");
+    if (indexTip) {
+      // Mappa la coordinata X sul canvas
+      sfasamento = map(indexTip.x, 0, video.width, 0, 100);
+      //rotationAngle = map(indexTip.y, 0, video.height, -PI / 4, PI / 4);
+      scaleFactor = map(indexTip.y, 0, video.height, 2, 0.5);
+      scaleFactor = constrain(scaleFactor, 0.5, 2);
+    }
+  }
 }
 
 function drawUniqueVideoGridOnFace(face, cols = 5, rows = 6) {
@@ -54,21 +65,32 @@ function drawUniqueVideoGridOnFace(face, cols = 5, rows = 6) {
   let boxWidth = face.box.width;
   let boxHeight = face.box.height;
 
-  let cellW = boxWidth / cols;
-  let cellH = boxHeight / rows;
+  let baseCellW = boxWidth / cols;
+  let baseCellH = boxHeight / rows;
+
+  let cellW = baseCellW * scaleFactor;
+  let cellH = baseCellH * scaleFactor;
+
+  //let cellW = boxWidth / cols;
+  //let cellH = boxHeight / rows;
 
   for (let y = 0; y < rows; y++) {
     for (let x = 0; x < cols; x++) {
-      let cx = face.box.xMin + cellW * x;
-      let cy = face.box.yMin + cellH * y;
+      //let cx = face.box.xMin + cellW * x;
+      //let cy = face.box.yMin + cellH * y;
+      let cx = left + baseCellW * x;
+      let cy = top + baseCellH * y;
+
       copy(
         video,
         cx - x * sfasamento,
         cy - y * sfasamento,
         cellW,
         cellH,
-        cx,
-        cy,
+        cx - cellW / 2 + baseCellW / 2,
+        cy - cellH / 2 + baseCellH / 2,
+        //cx,
+        //cy,
         cellW,
         cellH
       );
