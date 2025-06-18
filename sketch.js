@@ -7,6 +7,7 @@ let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
 let sfasamento = 10;
 let scaleFactor = 1;
+let vettore = createVector();
 //let rotationAngle = 0;
 
 function preload() {
