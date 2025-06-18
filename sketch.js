@@ -5,7 +5,7 @@ let hands = [];
 let faceMesh;
 let faces = [];
 let options = { maxFaces: 1, refineLandmarks: false, flipHorizontal: false };
-let sfasamento = 10;
+let sfasamento = 20;
 let scaleFactor = 1;
 
 //let rotationAngle = 0;
